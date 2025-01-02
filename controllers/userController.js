@@ -4,10 +4,10 @@ const userService = require("../services/userService");
 const { validationResult } = require("express-validator");
 const { config } = require("../config");
 module.exports.registerUser = async (req, res, next) => {
-  // const errors = validationResult(req);
-  // if (!errors.isEmpty()) {
-  //   return res.status(400).json({ ok: false, error: errors.array() });
-  // }
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ ok: false, error: errors.array() });
+  }
   try {
     const { fullname, email, password } = req.body;
     const existingUser = await userModel.findOne({ email });
@@ -43,10 +43,10 @@ module.exports.registerUser = async (req, res, next) => {
 };
 
 module.exports.loginUser = async (req, res, next) => {
-  // const errors = validationResult(req);
-  // if (!errors.isEmpty()) {
-  //   return res.status(400).json({ ok: false, error: errors.array() });
-  // }
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ ok: false, error: errors.array() });
+  }
   try {
     const { email, password } = req.body;
     const user = await userModel.findOne({ email }).select("+password");
