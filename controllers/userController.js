@@ -25,7 +25,13 @@ module.exports.registerUser = async (req, res, next) => {
       password: hashPassword,
     });
     const token = user.generateAuthToken();
-    res.cookie("token", token);
+    res.cookie("token", token,{
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None',
+      maxAge: 3600000,
+      expires : new Date(Date.now() + 3600000)
+    });
     return res
       .status(201)
       .json({ ok: true, user: user, message: "User created successfully" });
@@ -52,7 +58,13 @@ module.exports.loginUser = async (req, res, next) => {
     }
 
     const token = user.generateAuthToken();
-    res.cookie("token", token);
+    res.cookie("token", token,{
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None',
+      maxAge: 3600000,
+      expires : new Date(Date.now() + 3600000)
+    });
     return res
       .status(200)
       .json({ ok: true, token, user, message: "Login Successfully" });

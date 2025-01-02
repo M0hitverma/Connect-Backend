@@ -7,6 +7,11 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const {config} = require('./config');
 connectToDatabase();
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", config.BASE_URL);
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
