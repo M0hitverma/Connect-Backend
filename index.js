@@ -17,6 +17,8 @@ app.use(express.json());
 app.use(cors({
   origin: config.BASE_URL,
   credentials: true,
+  allowedHeaders: 'Content-Type,Authorization',
+  exposedHeaders: 'Authorization',
 }))
 
 app.use('/user',userRoute);
